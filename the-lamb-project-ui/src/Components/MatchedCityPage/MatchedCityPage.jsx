@@ -17,9 +17,10 @@ const MatchedCityPage = ({
   const [cityCard, setCityCard] = useState("");
   console.log("The formdata is.. ");
   console.log(formData);
+  const [token, setToken] = useState(localStorage("token"));
+  // setToken();
 
-  useEffect(() => {
-    console.log("calling useEffect");
+  const filterData = async () => {
     try {
       axios
         .post("http://localhost:3001/user/personal_preference", { formData })
@@ -33,6 +34,44 @@ const MatchedCityPage = ({
       console.log("ERROR", error);
     }
     console.log("test");
+  };
+  const getUserPreference = () => {
+    try {
+      const headers = {
+        Authorization: "Bearer" + " " + token,
+      };
+      console.log(formData);
+      axios
+        .post(
+          "http://localhost:3001/user/getUserPreference",
+          { formData },
+          { headers }
+        )
+        .then((response) => {
+          console.log(response.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const returningUserInformation = () => {
+    try {
+      const headers = {
+        Authorization: "Bearer " + token,
+      };
+      axios
+        .get("http://localhost:3001/user/returningUserInformation", { headers })
+        .then((response) => {
+          console.log(response.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    filterData();
+    getUserPreference();
+    returningUserInformation();
   }, []);
 
   console.log("city page", cityCard);

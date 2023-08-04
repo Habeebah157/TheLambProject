@@ -67,7 +67,9 @@ const UserPreferenceForm = ({
         <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="header">
-              <h1 className="mt-10 text-3xl underline decoration-sky-700/300 font-bold leading-9 tracking-tight text-[#044389]">{FormTitles[page]}</h1>
+              <h1 className="mt-10 text-3xl underline decoration-sky-700/300 font-bold leading-9 tracking-tight text-[#044389]">
+                {FormTitles[page]}
+              </h1>
             </div>
             <br />
             <div className="body">{PageDisplay()}</div>
@@ -87,7 +89,7 @@ const UserPreferenceForm = ({
                 onClick={() => {
                   if (page === FormTitles.length - 1) {
                     setFormComplete(true);
-                    console.log(formData);
+                    console.log("FORM DATA", formData);
                   } else {
                     setPage((currPage) => currPage + 1);
                   }

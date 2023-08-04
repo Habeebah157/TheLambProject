@@ -17,6 +17,26 @@ CREATE TABLE users_preference(
     Hobby TEXT NOT NULL,
     Images TEXT NOT NULL
 );
+CREATE TABLE user_preference(
+
+    user_email TEXT NOT NULL, 
+    State TEXT NOT NULL, 
+    Industry TEXT NOT NULL, 
+    Hobby TEXT NOT NULL, 
+    Weather TEXT NOT NULL,
+    states text ARRAY, 
+    FOREIGN KEY (user_email) REFERENCES users(email)
+    
+
+);
+
+
+-- craete a back button that goes to city card, when the user goes back to the 
+-- to the card place, I check if the user's email is already in the user preference table
+-- if it is, then I go get the data in the database based on the email and then I filter the 
+--data based on that and put it in the cards. 
+-- Also, I want to store the information in the house
+
 -- CREATE TABLE city_scores (
 --   id SERIAL PRIMARY KEY,
 --   city_name TEXT NOT NULL,

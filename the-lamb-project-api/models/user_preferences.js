@@ -100,6 +100,73 @@ class User_Preference {
     const user = result.rows;
     return user;
   }
-}
 
+  static async savingUserData(preference, email) {
+    console.log("USER PREFERENCE", preference);
+    // const requiredField = ["state", "industry", "hobby", "weather", "id"];
+    // requiredField.forEach((field) => {
+    //   throw new BadRequestError(`Missing ${field} in request body`);
+    // });
+
+    try {
+      const result = await db.query(
+        `
+        INSERT INTO user_preference(
+          State, 
+          Industry, 
+          Hobby, 
+          Weather, 
+          user_email
+        )
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+          `,
+        [
+          preference.state,
+          preference.industry,
+          preference.hobbies,
+          preference.weather,
+          email,
+        ]
+      );
+
+      const row = result.rows[0];
+      return row;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  static async checkingIfUserFilledPreference(email) {
+    try {
+      const query = `
+      SELECT * FROM user_preference
+        WHERE email = $1
+     `;
+      const result = db.query(query, email.email);
+      const user = (await result).rows;
+      if (user === null) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  static async getReturningUserPreferences(email) {
+    console.log(email);
+    try {
+      const query = `
+      SELECT * FROM user_preference
+        WHERE user_email = $1
+      `;
+      const result = db.query(query, [email]);
+      const user = (await result).rows[0];
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// when someone clicks was selected
 module.exports = User_Preference;
