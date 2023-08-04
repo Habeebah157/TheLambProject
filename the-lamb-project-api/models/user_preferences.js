@@ -145,9 +145,9 @@ class User_Preference {
       const result = db.query(query, email.email);
       const user = (await result).rows;
       if (user === null) {
-        return false;
+        return "false";
       } else {
-        return true;
+        return "true";
       }
     } catch (err) {
       console.log(err);
