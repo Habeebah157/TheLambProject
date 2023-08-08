@@ -31,7 +31,7 @@ const UserPreferenceForm = ({
         Authorization: "Bearer " + token,
       };
       let response = await axios.get(
-        "https://the-lamb-project-api.onrender.com/user/returningUserInformation",
+        "http://localhost:3001/user/returningUserInformation",
         { headers }
       );
       console.log(response);

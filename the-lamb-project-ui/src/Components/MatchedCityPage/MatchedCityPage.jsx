@@ -25,7 +25,7 @@ const MatchedCityPage = ({
         Authorization: "Bearer " + token,
       };
       let response = await axios.post(
-        "https://the-lamb-project-api.onrender.com/user/getUserPreference",
+        "http://localhost:3001/user/getUserPreference",
         { formData },
         { headers }
       );
@@ -40,7 +40,7 @@ const MatchedCityPage = ({
     console.log("calling useEffect");
     try {
       axios
-        .post("https://the-lamb-project-api.onrender.com/user/personal_preference", { formData })
+        .post("http://localhost:3001/user/personal_preference", { formData })
         .then((response) => {
           setCityCard(response.data);
           console.log("response.data from matchedcity: ");

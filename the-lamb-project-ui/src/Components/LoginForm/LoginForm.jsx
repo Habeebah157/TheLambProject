@@ -31,16 +31,16 @@ export default function LoginForm({ setAppState, setIsLoggedIn }) {
     setErrors((e) => ({ ...e, form: null }));
 
     try {
-      const res = await axios.post(`https://the-lamb-project-api.onrender.com/auth/login`, form );
+      const res = await axios.post(`http://localhost:3001/auth/login`, form);
       const token = res.data.token;
       const user = res.data.user;
-      localStorage.setItem("token", token)
+      localStorage.setItem("token", token);
       // console.log("token", token);
       /*
       {
         headers: { authorization: "Bearer " + localStorage.getItem("token") },
       }*/
-      console.log(localStorage.getItem("token"))
+      console.log(localStorage.getItem("token"));
       if (res?.data) {
         setAppState(res.data);
         setIsLoading(false);
@@ -52,7 +52,6 @@ export default function LoginForm({ setAppState, setIsLoggedIn }) {
           form: "Invalid username/password combination",
         }));
         setIsLoading(false);
-       
       }
       setIsLoggedIn(true);
     } catch (err) {

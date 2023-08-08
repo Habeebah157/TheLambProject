@@ -13,7 +13,7 @@ const MoreInformationCard = () => {
     try {
       // const response = await axios.get("http://localhost:3001/getwalkscore/"+ city);
       const response = await axios.get(
-        `https://the-lamb-project-api.onrender.com/getwalkscore/${city}`
+        `http://localhost:3001/getwalkscore/${city}`
       );
       setInfo(response?.data);
     } catch (error) {
@@ -24,7 +24,7 @@ const MoreInformationCard = () => {
   const getWeatherData = async () => {
     try {
       const response = await axios.get(
-        `https://the-lamb-project-api.onrender.com/api/historical-weather?city=${city}`
+        `http://localhost:3001/api/historical-weather?city=${city}`
       );
       setWeatherData(response.data);
       setError(null);

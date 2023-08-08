@@ -23,6 +23,7 @@ import CityCard from "./Components/MoreInformationCard/temp";
 import MoreInformationCard from "./Components/MoreInformationCard/MoreInformationCard";
 
 const App = () => {
+  // http://localhost:3001/
   const [appState, setAppState] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -37,6 +38,7 @@ const App = () => {
   const [index, setIndex] = useState(0);
   const [inCardMatched, setInCardMatched] = useState(false);
   const [arrayLength, setArrayLength] = useState(0);
+  const [indexNumber, setIndexNumber] = useState(0);
   // const currentIndexRef = useRef(currentIndex)
   // const childRefs = 0;
   const [darkMode, setDarkMode] = useState(true);
@@ -53,13 +55,15 @@ const App = () => {
   ) => {
     setIndex(index + 1);
     setCurrentIndex(pers_preference.pers_preference.length);
-    console.log("HOUSE VISIBLE", houseVisible);
+    // console.log("HOUSE VISIBLE", houseVisible);
     setInCardMatched(houseVisible);
+    setArrayLength(arrayLength - 1);
+    console.log("arryaLengt", arrayLength);
     setAllCities([...allCities, nameToDelete]);
-    console.log("allCitites", allCities);
-    console.log("removing:" + nameToDelete);
-    console.log(index);
-    setArrayLength(currentIndex - allCities.length);
+    // console.log("allCitites", allCities);
+    // console.log("removing:" + nameToDelete);
+    // console.log(index);
+    // setArrayLength(arrayLength - 1);
 
     if (direction == "right") {
       setNumber(number + 1);
@@ -72,11 +76,13 @@ const App = () => {
       //so I have the city name right, I want to try to put it back where it was,
       // how do I control that, when I swipe, how does the slide get out of the page.
     }
-    console.log("Number", number);
+    // console.log("Number", number);
 
     setLastDirection(direction);
+    setIndexNumber(indexNumber - 1);
+    // console.log("INDEX", indexNumber);
   };
-  console.log("Cities", cities);
+  // console.log("Cities", cities);
   const outOfFrame = (name) => {
     console.log(name + " left the screen");
   };
@@ -88,7 +94,7 @@ const App = () => {
     weather: "",
   });
   const changeValue = (city) => {
-    console.log("BIG CITY", city);
+    // console.log("BIG CITY", city);
     setCitiesSize(citiesSize - 1);
 
     // const newList = cities.filter((item) => item !== city);
@@ -106,14 +112,28 @@ const App = () => {
     // await
     // console.log(childRefs[0]);
     // await childRefs[currentIndexRef].current.swipe(dir);
-    console.log("citycard", cityCard.pers_preference.length);
+    // (await childRefs[arrayLength])
+    //   ? childRefs[arrayLength].current.swipe(dir)
+    //   : childRefs[childRefs.length - 1].current.swipe(dir);
+    // console.log("citycard", cityCard.pers_preference.length);
+    console.log("ARRAY LENGTH ", arrayLength);
+    if (arrayLength <= 0) {
+      setArrayLength(cityCard.pers_preference.length - 1);
+      console.log("city legnth", cityCard.pers_preference.length - 1);
+    }
 
-    setArrayLength(cityCard.pers_preference.length);
-    console.log(arrayLength);
-    console.log("arrayLength", arrayLength);
-    console.log("CURRENT INDEX", currentIndex);
+    if (indexNumber === 0) {
+      setIndexNumber(arrayLength - 1);
+    }
 
-    await childRefs[0].current.swipe(dir);
+    // console.log(arrayLength);
+    // console.log("arrayLength", arrayLength);
+    // console.log("CURRENT INDEX", currentIndex);
+    console.log("LENGTH", arrayLength);
+
+    await childRefs[arrayLength].current.swipe(dir);
+    setArrayLength(arrayLength - 1);
+    console.log("afater swipte", arrayLength);
   };
   const childRefs = useMemo(
     () =>
@@ -122,7 +142,7 @@ const App = () => {
         .map((i) => React.createRef()),
     []
   );
-  console.log("childeRef", childRefs);
+  // console.log("childeRef", childRefs);
 
   return (
     <div>
